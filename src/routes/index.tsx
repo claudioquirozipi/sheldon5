@@ -6,7 +6,8 @@ import GridContainer from '../view/grid/gridContainer';
 import Nav from '../view/nav/nav';
 import ControllerHome from '../controller/home';
 import ControllerLogin from '../controller/login';
-import SingUp from '../view/login/singup';
+
+import ControllerSingUp from '../controller/login/singUp';
 import NewPassword from '../view/login/newPassword';
 import ControllerCsvLoader from '../controller/csvLoader';
 import RecoverPassword from '../view/login/recoverPassword';
@@ -45,7 +46,7 @@ function MyRoutes() {
                     <Nav />
 
                     <Route path="/login" component={ControllerLogin}/>
-                    <Route path="/singup" component={SingUp} />     
+                    <Route path="/singup" component={ControllerSingUp} />     
                     <Route path="/recoverpassword" component={RecoverPassword} />     
                     <Route path="/newpassword" component={NewPassword} />
                     <Route path="/csv-loader" component={ControllerCsvLoader} />  

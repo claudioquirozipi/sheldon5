@@ -29,7 +29,11 @@ module.exports = {
             '/login_user': {
                 target: 'http://167.71.248.71/login_user',
                 pathRewrite: { '^/login_user': '' }
-            }       
+            },
+            '/register_user': {
+                target: 'http://167.71.248.71/register_user',
+                pathRewrite: { '^/register_user': '' }
+            }    
         }
     },
     resolve: {

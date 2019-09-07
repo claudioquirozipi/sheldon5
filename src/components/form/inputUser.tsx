@@ -10,14 +10,19 @@ import * as img1 from './img/user.svg';
 interface iInput {
     placeholder: string;
     error: string;
+    setValue?: any;
+}
+function handleChage(e: any, setValue: any) {
+    // Agrega el valor value al hook padre
+    setValue(e.target.value);
 }
 
 function InputUser(props: iInput) {
-    const {placeholder, error} = props;
+    const {placeholder, error, setValue} = props;
     return(
         <ContainerInput>
             <img src={img1} alt=""/>
-            <input type="text" placeholder={placeholder}/>
+            <input type="text" placeholder={placeholder} onChange={(e:any) =>handleChage(e, setValue)}/>
             <span>{error}</span>
         </ContainerInput>
     )
