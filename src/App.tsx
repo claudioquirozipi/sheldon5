@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import {MyContext} from './context';
+
+//Redux
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 //Components
 import MyRoutes from './routes';
@@ -16,17 +19,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App: React.FC = () => {
-  const [hola, setHola] = React.useState("hola claudio");
   return (
-    
-    <MyContext.Provider value={{saludo:hola, setSaludo: ()=>setHola("chao Claudio")}}>
-
+    <Provider store={store}>
       <div className="App">
         <GlobalStyle />
         <MyRoutes />
       </div>
-    </MyContext.Provider>  
-    
+    </Provider>   
   );
 }
 

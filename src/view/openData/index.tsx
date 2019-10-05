@@ -4,29 +4,39 @@ import * as React from 'react';
 
 
 //Components-Libraly
-import ContainerCenter from '../../components/modal/containerCenter';
 import CardCQ from '../../components/cards/index';
-
+import Button from '../../components/buttons';
+//Styled-components
+import {
+    ContainerCenter,
+    Title,
+    Card,
+    ContainerText
+} from './styled';
 //Assest
-// import * as imgVideo from '../../assets/img/openData/video.png';
+import * as video from '../../assets/img/openData/video.png';
+import * as icon1 from '../../assets/img/openData/icon.svg';
 
 function OpenData() {
     return(
         
-            <ContainerCenter bgColor="transparent">
-                <h1>Open data service</h1>
-                <CardCQ>
+            <ContainerCenter>
+                <Title>
+                    <img src={icon1}/>
+                    <h1>Open data service</h1>
+                </Title>
+                <Card>
                     <div>
-                       {/* <img src={imgVideo} alt="hola"/> */}
+                       <img src={video} alt="hola"/>
                     </div>
-                    <div>
+                    <ContainerText>
                         <p>
                             1.350 desisores de compra fueron encontrados que <br/>
-                            comparten los mismos criterios que tus clientes Ver más
+                            comparten los mismos criterios que tus clientes <a href="#">Ver más</a>
                         </p>
-                        <button>Adquirir</button>
-                    </div>
-                </CardCQ>
+                        <Button text="Adquirir" bgColor="#70A1FF" disable={false}/>
+                    </ContainerText>
+                </Card>
             </ContainerCenter>
         
     )

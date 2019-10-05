@@ -5,10 +5,10 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 require('dotenv').config({path: __dirname + '/.env'});
-
+ 
 const FILE_ENV        = path.resolve(__dirname + '/.env');
 const FOLDER_TEMPLATE = path.resolve(__dirname + '/template');
-
+ 
 module.exports = {
     entry: './src/index.tsx',
     output: {
@@ -25,15 +25,32 @@ module.exports = {
         open: true,
         hot: true,
         host: 'localhost',
+        historyApiFallback: true,
         proxy: {
-            '/login_user': {
-                target: 'http://167.71.248.71/login_user',
-                pathRewrite: { '^/login_user': '' }
+            '/api/find_user': {
+                target: 'http://167.71.248.71/find_user',
+                pathRewrite: { '^/api/find_user': '' }
             },
-            '/register_user': {
+            '/api/login_user': {
+                target: 'http://167.71.248.71/login_user',
+                pathRewrite: { '^/api/login_user': '' }
+            },
+            '/api/register_user': {
                 target: 'http://167.71.248.71/register_user',
-                pathRewrite: { '^/register_user': '' }
-            }    
+                pathRewrite: { '^/api/register_user': '' }
+            },
+            '/api/logout': {
+                target: 'http://167.71.248.71/logout',
+                pathRewrite: { '^/api/logout': '' }
+            },
+            '/api/recover_password': {
+                target: 'http://167.71.248.71/recover_password',
+                pathRewrite: { '^/api/recover_password': '' }
+            },
+            '/api/update_password': {
+                target: 'http://167.71.248.71/update_password',
+                pathRewrite: { '^/api/update_password': '' }
+            }
         }
     },
     resolve: {

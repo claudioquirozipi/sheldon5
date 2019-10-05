@@ -26,7 +26,7 @@ export const ContainerInput = styled.div`
         align-items: center;
         padding: 0 14px;
         height: 43px;
-        width: 327px;
+        width: calc(100% - 28px - 4px);
         position: relative;
         margin-bottom: 22px;
         img {
@@ -35,7 +35,7 @@ export const ContainerInput = styled.div`
         }
         
             input {
-            margin-left: 20px;
+                margin-left: 20px;
                 border: none;
                 outline: none;
                 width: 100%;

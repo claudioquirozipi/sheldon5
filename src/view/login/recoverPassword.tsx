@@ -11,14 +11,15 @@ import Form from '../../components/form/form';
 import InputEmail from '../../components/form/inputEmail';
 import InputSubmit from '../../components/form/inputSubmit';
 
-function RecoverPassword() {
+function RecoverPassword(props: any) {
+    const {recoverPassword, setValue} = props;
     return(
         <GridContainerD>
             <ContainerCenter bgColor="#F8F8F8">
                 <Paper urlClouse="/"> 
-                    <Form>
+                    <Form onSubmit={recoverPassword}>
                         <h1>Send a URL to you email</h1>
-                        <InputEmail placeholder="Email" error="hay un error"/>
+                        <InputEmail setValue={setValue} placeholder="Email" error="hay un error"/>
                         <InputSubmit value="Send" />
                     </Form>
                 </Paper>

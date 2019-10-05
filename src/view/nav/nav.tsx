@@ -21,7 +21,10 @@ import * as icon9 from '../../assets/img/nav/Integrations.svg';
 import * as icon10 from '../../assets/img/nav/billing.svg';
 import * as icon11 from '../../assets/img/nav/support.svg';
 import * as icon12 from '../../assets/img/nav/logout.svg';
-function Nav() {
+
+
+function Nav(props: any) {
+    const {handleLogout} = props;
     return(
         <GridContainerA>
             <NavCS>
@@ -41,7 +44,7 @@ function Nav() {
                     <li><Link to="/integrations/mail"><img src={icon9} alt=""/>Integrations</Link></li>
                     <li><Link to="/billing"><img src={icon10} alt=""/>Billing</Link></li>
                     <li><Link to="/support"><img src={icon11} alt=""/>Support</Link></li>
-                    <li><Link to="/login"><img src={icon12} alt=""/>Cerrar Seción</Link></li>
+                    <li><span onClick={handleLogout}><img src={icon12} alt=""/>Cerrar Seción</span></li>
                 </ul>
             </NavCS>
         </GridContainerA>

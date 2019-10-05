@@ -10,15 +10,16 @@ import Form from '../../components/form/form';
 import InputPassword from '../../components/form/inputPassword';
 import InputSubmit from '../../components/form/inputSubmit';
 
-function NewPassword() {
+function NewPassword(props: any) {
+    const {setPassword, setRePassword, handleNewPassword} = props;
     return(
         <GridContainerD>
             <ContainerCenter bgColor="#F8F8F8">
                 <Paper urlClouse="/">
-                    <Form>
+                    <Form onSubmit={handleNewPassword}>
                         <h1>Create a new<br/>password</h1>
-                        <InputPassword placeholder="Password" error="hay un error"/>
-                        <InputPassword placeholder="Repassword" error="hay un error"/>
+                        <InputPassword  setValue={setPassword}placeholder="Password" error="hay un error"/>
+                        <InputPassword setValue={setRePassword} placeholder="Repassword" error="hay un error"/>
                         <InputSubmit value="Create" />
                     </Form>
                 </Paper>

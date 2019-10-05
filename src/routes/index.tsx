@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import GridContainer from '../view/grid/gridContainer';
 //Components
-import Nav from '../view/nav/nav';
+import ControllerNav from '../controller/nav';
 import ControllerHome from '../controller/home';
 import ControllerLogin from '../controller/login';
 
 import ControllerSingUp from '../controller/login/singUp';
-import NewPassword from '../view/login/newPassword';
+import ControllerNesPassword from '../controller/login/newPassword';
 import ControllerCsvLoader from '../controller/csvLoader';
-import RecoverPassword from '../view/login/recoverPassword';
+import ControllerRecoberPassword from '../controller/login/recoverPassword';
 //App Components
 import SalesFunnelNav from '../view/salesFunnel/nav';
 import SalesFunnelview1 from '../view/salesFunnel/view1';
@@ -21,7 +21,7 @@ import CommunicationFlow from '../view/communicationFlow';
 import OpenData from '../view/openData';
 import LeadGenerator from '../view/LeadGenerator';
 import MediaPlaning from '../view/mediaPlaning';
-import StaffAugmentation from '../view/staffAugmentation';
+import ControllerStaffAugmentation from '../controller/staffAugmentation';
 //Admin Components 
 import MyProfile from '../view/myProfile';
 import IntegrationsNav from '../view/integrations/nav';
@@ -43,12 +43,12 @@ function MyRoutes() {
         <Router>
                 <GridContainer>
                     <NavTest />
-                    <Nav />
+                    <Route path="/" component={ControllerNav}/>
 
                     <Route path="/login" component={ControllerLogin}/>
                     <Route path="/singup" component={ControllerSingUp} />     
-                    <Route path="/recoverpassword" component={RecoverPassword} />     
-                    <Route path="/newpassword" component={NewPassword} />
+                    <Route path="/recoverpassword" component={ControllerRecoberPassword} />     
+                    <Route path="/update-password/:token" component={ControllerNesPassword} />
                     <Route path="/csv-loader" component={ControllerCsvLoader} />  
                     {/* App */}
                     <Route path="/sales-funnel" component={SalesFunnelNav} />            
@@ -60,7 +60,7 @@ function MyRoutes() {
                     <Route path="/open-data" component={OpenData} />
                     <Route path="/lead-generator" component={LeadGenerator} />
                     <Route path="/media-planing" component={MediaPlaning} />
-                    <Route path="/staff-augmentation" component={StaffAugmentation} />
+                    <Route path="/staff-augmentation" component={ControllerStaffAugmentation} />
                     {/* Admin */}
                     <Route path="/my-profile" component={MyProfile} />
                     <Route path="/integrations" component={IntegrationsNav} />
