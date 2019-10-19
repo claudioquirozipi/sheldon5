@@ -37,7 +37,7 @@ function handleSubmit(e:any, email:string, password: string, dispatch:any, histo
                 history.push("/");
             })
             .catch((error) => {
-                console.log("este es un error",error);
+                console.log("este es un error",error.response);
                 loginError();
             }
     );
