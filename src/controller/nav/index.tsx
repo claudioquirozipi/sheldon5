@@ -18,11 +18,12 @@ const handleLogout = (token: string, dispatch: any, history: any) => {
     const logoutError = () => dispatch(logoutErrorAcction());
     console.log("se está ejecuntando el axios", token, dispatch, history);
     logout();
-    axios.post(process.env.API + 'logout',
-        { 
-            "headers": {"Authorization" : token},
-                "token": token
-        }
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }
+    axios.post(process.env.API + 'logout',{},
+            {headers: headers}
         )
         .then(({data}) => {
             console.log("se serró con extito",data);
@@ -32,8 +33,7 @@ const handleLogout = (token: string, dispatch: any, history: any) => {
         .catch((error) => {
             console.log("este es un error",error);
             logoutError();
-        }
-    );
+        });
 }
 function ControllerNav(props: any) {
     const {history} = props;

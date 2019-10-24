@@ -50,6 +50,14 @@ module.exports = {
             '/api/update_password': {
                 target: 'http://167.71.248.71/update_password',
                 pathRewrite: { '^/api/update_password': '' }
+            },
+            '/api/upload_csv': {
+                target: 'http://167.71.248.71/upload_csv',
+                pathRewrite: { '^/api/upload_csv': '' }
+            },
+            '/api/find_contacts': {
+                target: 'http://167.71.248.71/find_contacts',
+                pathRewrite: { '^/api/find_contacts': '' }
             }
         }
     },

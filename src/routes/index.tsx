@@ -14,10 +14,7 @@ import ControllerNesPassword from '../controller/login/newPassword';
 import ControllerCsvLoader from '../controller/csvLoader';
 import ControllerRecoberPassword from '../controller/login/recoverPassword';
 //App Components
-import SalesFunnelNav from '../view/salesFunnel/nav';
-import SalesFunnelview1 from '../view/salesFunnel/view1';
-import SalesFunnelview2 from '../view/salesFunnel/view2';
-import SalesFunnelview3 from '../view/salesFunnel/view3';
+import ControllerSalesFunnel from '../controller/salesFunnel';
 import DashBoard from '../view/dashBoard';
 import CommunicationFlow from '../view/communicationFlow';
 import OpenData from '../view/openData';
@@ -55,17 +52,7 @@ function MyRoutes() {
                             
                             <Route path="/csv-loader" component={ControllerCsvLoader} />  
                             
-                            <Route path="/sales-funnel" component={SalesFunnelNav} />            
-                            <Switch>
-                                <Route path="/sales-funnel/1" component={SalesFunnelview1} />      
-                                <Route path="/sales-funnel/2" component={SalesFunnelview2} />      
-                                <Route path="/sales-funnel/3" component={SalesFunnelview3} />      
-                                <Redirect exact from="/" to="/sales-funnel/1" />
-                                <Redirect from="/login" to="/sales-funnel/1" />
-                                <Redirect from="/singup" to="/sales-funnel/1" />
-                                <Redirect from="/recoverpassword" to="/sales-funnel/1" />
-                                <Redirect from="/update-password" to="/sales-funnel/1" />
-                            </Switch>
+                            <Route path="/sales-funnel" component={ControllerSalesFunnel} />            
 
                             <Route path="/dashboard" component={DashBoard} />            
                             <Route path="/communication-flow" component={CommunicationFlow} />            

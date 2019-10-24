@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
+import fileDownload  from 'js-file-download';
 
 //Compenents
 import GridContainerD from '../grid/gridContainerD';
@@ -18,6 +19,7 @@ import {
 import * as img from '../../assets/img/csvLoader/users.svg';
 
 function CsvLoader1() {
+    
     return(
         <GridContainerD>
             <ContainerCenter bgColor="white">
@@ -30,6 +32,8 @@ function CsvLoader1() {
                         Si todavía no comprendes <Link to="https://www.youtube.com/">MIRA ESTE VIDEO.</Link>
                     </p>
                     <ContainerButtons>
+                        <a href="/" download="sheldon-excel.xlsx">descarga windows</a>
+                        <a href="/" download="hola.txt">hola</a>
                         <Button text="IOs" bgColor="#3FC180" disable={false}/>
                         <Button text="Windows" bgColor="#3FC180" disable={false}/>
                     </ContainerButtons>

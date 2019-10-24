@@ -1,5 +1,6 @@
 import * as React from 'react';
-
+//Redux
+import { useSelector} from 'react-redux';
 //Compenents
 import GridContainerD from '../grid/gridContainerD';
 
@@ -26,19 +27,37 @@ function Img() {
     )
 }
 
-function CsvLoader2() {
+//Interface 
+interface iCsvLoader2 {
+    onSubmit: any;
+}
+
+function handleChange(e:any, setFormData: any) {
+    setFormData(e.target.value);
+    console.log("formData",e.target.files[0]);
+}
+
+function CsvLoader2(props: iCsvLoader2) {
+    const {onSubmit} = props;
+    const [formData, setFormData] = React.useState(null);
+    const token = useSelector( (state:any) => state.user.user.token);
     return(
         <GridContainerD>
             <ContainerCenter bgColor="white">
                 <ContainerCsvLoader>
-                    <Img />
-                    <h1>Valida y carga el CSV</h1>
-                    <p>
-                        Hazlo tal cual están las columnas, completando la información que<br/>
-                        dispones en tu CRM, Linkedin, Excel, o cualquier otro formato<br/>
-                        Para adjuntarla aqui y Sheldon pueda entenderla.
-                    </p>
-                    <Button text="Cargar" bgColor="#3FC180" disable={true}/>
+                    <form onSubmit={(e) => onSubmit(e, formData, token)}>
+                        <Img />
+                        <input type="file" name="" id="inputformdata" onChange={(e)=>handleChange(e, setFormData)}/>
+                        <h1>Valida y carga el CSV</h1>
+                        <input type="file" id="file" />
+                        <p>
+                            Hazlo tal cual están las columnas, completando la información que<br/>
+                            dispones en tu CRM, Linkedin, Excel, o cualquier otro formato<br/>
+                            Para adjuntarla aqui y Sheldon pueda entenderla.
+                        </p>
+                        {/* <Button text="Cargar" bgColor="#3FC180" disable={true}/> */}
+                        <input type="submit" value="enviar"/>
+                    </form>
                 </ContainerCsvLoader>
             </ContainerCenter>
         </GridContainerD>
