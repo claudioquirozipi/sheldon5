@@ -11,7 +11,8 @@ import ControllerLogin from '../controller/login';
 
 import ControllerSingUp from '../controller/login/singUp';
 import ControllerNesPassword from '../controller/login/newPassword';
-import ControllerCsvLoader from '../controller/csvLoader';
+import ControllerCsvL1 from '../controller/csvLoader/csvL1';
+import ControllerCsvL2 from '../controller/csvLoader/csvL2';
 import ControllerRecoberPassword from '../controller/login/recoverPassword';
 //App Components
 import ControllerSalesFunnel from '../controller/salesFunnel';
@@ -39,7 +40,6 @@ import NavTest from './navtest';
 
 function MyRoutes() {
     const login = useSelector((state:any) => state.user.login);
-    console.log("router", login)
     
     return (
         <Router>
@@ -49,30 +49,34 @@ function MyRoutes() {
                     ? 
                         <>
                             <Route path="/" component={ControllerNav}/>
-                            
-                            <Route path="/csv-loader" component={ControllerCsvLoader} />  
-                            
-                            <Route path="/sales-funnel" component={ControllerSalesFunnel} />            
+                            <Switch>
 
-                            <Route path="/dashboard" component={DashBoard} />            
-                            <Route path="/communication-flow" component={CommunicationFlow} />            
-                            <Route path="/open-data" component={OpenData} />
-                            <Route path="/lead-generator" component={LeadGenerator} />
-                            <Route path="/media-planing" component={MediaPlaning} />
-                            <Route path="/staff-augmentation" component={ControllerStaffAugmentation} />
-                            
-                            <Route path="/my-profile" component={MyProfile} />
-                            <Route path="/integrations" component={IntegrationsNav} />
-                            <Route path="/integrations/mail" component={MailIntegrations} />
-                            <Route path="/integrations/linkedin" component={LinkedinIntegrations} />
-                            <Route path="/integrations/whatsapp" component={WhatsappIntegrations} />
-                            <Route path="/integrations/calls" component={CallsIntegrations} />
-                            <Route path="/integrations/calendar" component={CalendarIntegrations} />
-                            <Route path="/integrations/others" component={OthersIntegrations} />
-                            
-                            <Route path="/billing" component={Billing} />
-                            <Route path="/support" component={support} />
-                            
+                                <Route path="/csv-loader/1" component={ControllerCsvL1} />
+                                <Route path="/csv-loader/2" component={ControllerCsvL2} />  
+                                
+                                <Route path="/sales-funnel" component={ControllerSalesFunnel} />            
+
+                                <Route path="/dashboard" component={DashBoard} />            
+                                <Route path="/communication-flow" component={CommunicationFlow} />            
+                                <Route path="/open-data" component={OpenData} />
+                                <Route path="/lead-generator" component={LeadGenerator} />
+                                <Route path="/media-planing" component={MediaPlaning} />
+                                <Route path="/staff-augmentation" component={ControllerStaffAugmentation} />
+                                
+                                <Route path="/my-profile" component={MyProfile} />
+                                <Route path="/integrations" component={IntegrationsNav} />
+                                <Route path="/integrations/mail" component={MailIntegrations} />
+                                <Route path="/integrations/linkedin" component={LinkedinIntegrations} />
+                                <Route path="/integrations/whatsapp" component={WhatsappIntegrations} />
+                                <Route path="/integrations/calls" component={CallsIntegrations} />
+                                <Route path="/integrations/calendar" component={CalendarIntegrations} />
+                                <Route path="/integrations/others" component={OthersIntegrations} />
+                                
+                                <Route path="/billing" component={Billing} />
+                                <Route path="/support" component={support} />
+                                
+                                <Redirect exact from="/" to="/sales-funnel" />
+                            </Switch>
                         </>
                     :
                         <Switch>

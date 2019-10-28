@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import fileDownload  from 'js-file-download';
 
 //Compenents
@@ -18,8 +18,9 @@ import {
 //Assets
 import * as img from '../../assets/img/csvLoader/users.svg';
 
-function CsvLoader1() {
-    
+function CsvLoader1(props: any) {
+    const {history} = props;
+    console.log("csv-loader",history);
     return(
         <GridContainerD>
             <ContainerCenter bgColor="white">
@@ -32,10 +33,8 @@ function CsvLoader1() {
                         Si todavía no comprendes <Link to="https://www.youtube.com/">MIRA ESTE VIDEO.</Link>
                     </p>
                     <ContainerButtons>
-                        <a href="/" download="sheldon-excel.xlsx">descarga windows</a>
-                        <a href="/" download="hola.txt">hola</a>
-                        <Button text="IOs" bgColor="#3FC180" disable={false}/>
-                        <Button text="Windows" bgColor="#3FC180" disable={false}/>
+                        <a onClick={()=> history.push('/csv-loader/2')} href="/" download="sheldon-excel.xlsx">Windows</a>
+                        <a onClick={()=> history.push('/csv-loader/2')} href="/" download="hola.txt">IOs</a>
                     </ContainerButtons>
                 </ContainerCsvLoader>
             </ContainerCenter>
@@ -43,4 +42,4 @@ function CsvLoader1() {
     )
 }
 
-export default CsvLoader1;
+export default withRouter(CsvLoader1);

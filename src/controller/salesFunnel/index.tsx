@@ -17,23 +17,23 @@ function handleAxios(token: string, setIsData: any) {
     axios.post(process.env.API + "find_contacts",{
             "filters": {},
             "page": 1,
-            "limit": 5
+            "limit": 10
         },
         {headers: headers}
     )
     .then(({data}) => {
-        console.log("se serró con extito",data);
-        setIsData(true);
+        console.log("solicitó los datos con exito",data);
+        setIsData(data.data.contacts);
     })
     .catch((error) => {
         console.log("este es un error",error);
-        setIsData(false);
+        setIsData(null);
     })
 };
 
 function ControllerSalesFunnel() {
     const [numberView, setNumberView] = React.useState(1);
-    const [isData, setIsData] = React.useState(false);
+    const [isData, setIsData] = React.useState(null);
     const token = useSelector( (state:any) => state.user.user.token);
     React.useEffect(() => {
         handleAxios(token, setIsData);
@@ -41,9 +41,9 @@ function ControllerSalesFunnel() {
     return(
         <>
             <SalesFunnelNav setNumberView={setNumberView}/>
-            {numberView==1 && isData ===true ? <SalesFunnelview1 /> :null}
-            {numberView==2 && isData ===true ? <SalesFunnelview2 /> :null}
-            {numberView==3 && isData ===true ? <SalesFunnelview3 /> :null}
+            {numberView==1 && isData ? <SalesFunnelview1 data={isData} /> :null}
+            {numberView==2 && isData ? <SalesFunnelview2 data={isData} /> :null}
+            {numberView==3 && isData ? <SalesFunnelview3 data={isData} /> :null}
         </>
     )
 }

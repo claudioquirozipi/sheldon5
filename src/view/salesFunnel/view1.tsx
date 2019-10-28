@@ -11,12 +11,16 @@ import {
     Table
 } from './styled';
 
-//Data
-import {data} from './data';
 //Assets
 import * as imgDownload from '../../assets/img/salesFunnel/download.svg';
 
-function HomeView1() {
+//Interface
+interface iHomeView1 {
+    data: any[];
+}
+function HomeView1(props: iHomeView1) {
+    const {data} = props;
+    console.log("esta es la data" , data);
     return(
         <GridContainerC>
             <ContainerDownload>
@@ -81,55 +85,56 @@ function HomeView1() {
                     </tr>
                 </thead>
                 <tbody>
+                    
 
                     {data.map((data, i )=>{return(
                         <tr key={i}>
-                            <td><p>{data.Funnel_Status}</p></td>
-                            <td><p>{data.Last_Update}</p></td>
-                            <td><p>{data.Next_Action}</p></td>
-                            <td><p>{data.FollowUp}</p></td>
-                            <td><p>{data.DecisionMaker}</p></td>
-                            <td><p>{data.LastName}</p></td>
-                            <td><p>{data.Company_Area}</p></td>
-                            <td><p>{data.Company_Position}</p></td>
-                            <td><p>{data.Personal_Mail}</p></td>
-                            <td><p>{data.Personal_CompanyMail}</p></td>
-                            <td><p>{data.CellPhone_Whatsapp}</p></td>
-                            <td><p>{data.Skype_User}</p></td>
-                            <td><p>{data.HangOut_User}</p></td>
-                            <td><p>{data.Linkedin_URL}</p></td>
-                            <td><p>{data.Picture_URL}</p></td>
-                            <td><p>{data.Facebook_URL}</p></td>
-                            <td><p>{data.Instagram_URL}</p></td>
-                            <td><p>{data.Interests}</p></td>
-                            <td><p>{data.Sex}</p></td>
-                            <td><p>{data.NSE}</p></td>
-                            <td><p>{data.Birthday}</p></td>
-                            <td><p>{data.Media_Consumption}</p></td>
-                            <td><p>{data.Company_LinkedIn_URL}</p></td>
-                            <td><p>{data.Company_Name}</p></td>
-                            <td><p>{data.Potential_Size}</p></td>
-                            <td><p>{data.Company_Sector}</p></td>
-                            <td><p>{data.Company_Products}</p></td>
-                            <td><p>{data.Web_URL}</p></td>
-                            <td><p>{data.Company_Phone}</p></td>
-                            <td><p>{data.Sucursal_Location}</p></td>
-                            <td><p>{data.City}</p></td>
-                            <td><p>{data.State}</p></td>
-                            <td><p>{data.Country}</p></td>
-                            <td><p>{data.NextPurchase_Date}</p></td>
-                            <td><p>{data.Satisfaction_DM}</p></td>
-                            <td><p>{data.Operator_MailID}</p></td>
-                            <td><p>{data.Countable_Number}</p></td>
-                            <td><p>{data.DM_Countable}</p></td>
-                            <td><p>{data.Personal_CountableMail}</p></td>
-                            <td><p>{data.CellPhone_Countable}</p></td>
-                            <td><p>{data.Payment_Date}</p></td>
-                            <td><p>{data.Frecuency}</p></td>
-                            <td><p>{data.Payment_Method}</p></td>
-                            <td><p>{data.Payment_Ammount}</p></td>
-                            <td><p>{data.Status_Countable}</p></td>
-                            <td><p>{data.Payment_Description}</p></td>
+                            <td><p>{data.company_name}</p></td>
+                            <td><p>{"Last_Update"}</p></td>
+                            <td><p>{"Next_Action"}</p></td>
+                            <td><p>{"FollowUp"}</p></td>
+                            <td><p>{"DecisionMaker"}</p></td>
+                            <td><p>{"LastName"}</p></td>
+                            <td><p>{"Company_Area"}</p></td>
+                            <td><p>{"Company_Position"}</p></td>
+                            <td><p>{"Personal_Mail"}</p></td>
+                            <td><p>{"Personal_CompanyMail"}</p></td>
+                            <td><p>{"CellPhone_Whatsapp"}</p></td>
+                            <td><p>{"Skype_User"}</p></td>
+                            <td><p>{"HangOut_User"}</p></td>
+                            <td><p>{"Linkedin_URL"}</p></td>
+                            <td><p>{"Picture_URL"}</p></td>
+                            <td><p>{"Facebook_URL"}</p></td>
+                            <td><p>{"Instagram_URL"}</p></td>
+                            <td><p>{"Interests"}</p></td>
+                            <td><p>{"Sex"}</p></td>
+                            <td><p>{"NSE"}</p></td>
+                            <td><p>{"Birthday"}</p></td>
+                            <td><p>{"Media_Consumption"}</p></td>
+                            <td><p>{"Company_LinkedIn_URL"}</p></td>
+                            <td><p>{"Company_Name"}</p></td>
+                            <td><p>{"Potential_Size"}</p></td>
+                            <td><p>{"Company_Sector"}</p></td>
+                            <td><p>{"Company_Products"}</p></td>
+                            <td><p>{"Web_URL"}</p></td>
+                            <td><p>{"Company_Phone"}</p></td>
+                            <td><p>{"Sucursal_Location"}</p></td>
+                            <td><p>{"City"}</p></td>
+                            <td><p>{"State"}</p></td>
+                            <td><p>{"Country"}</p></td>
+                            <td><p>{"NextPurchase_Date"}</p></td>
+                            <td><p>{"Satisfaction_DM"}</p></td>
+                            <td><p>{"Operator_MailID"}</p></td>
+                            <td><p>{"Countable_Number"}</p></td>
+                            <td><p>{"DM_Countable"}</p></td>
+                            <td><p>{"Personal_CountableMail"}</p></td>
+                            <td><p>{"CellPhone_Countable"}</p></td>
+                            <td><p>{"Payment_Date"}</p></td>
+                            <td><p>{"Frecuency"}</p></td>
+                            <td><p>{"Payment_Method"}</p></td>
+                            <td><p>{"Payment_Ammount"}</p></td>
+                            <td><p>{"Status_Countable"}</p></td>
+                            <td><p>{"Payment_Description"}</p></td>
                         </tr>
                     )})}
                 </tbody>

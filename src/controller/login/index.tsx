@@ -31,9 +31,9 @@ function handleSubmit(e:any, email:string, password: string, dispatch:any, histo
                 "password": password
             })
             .then(({data}) => {
-                console.log(data);
+                console.log("login",data);
                 
-                loginOk(data);
+                loginOk(data.data);
                 history.push("/");
             })
             .catch((error) => {

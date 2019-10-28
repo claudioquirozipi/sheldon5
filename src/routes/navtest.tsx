@@ -36,7 +36,7 @@ function NavTest() {
                     <Link to="/update-password/token">newpassword</Link>
                 </li>
                 <li>
-                    <Link to="/csv-loader">CsvLoader</Link>
+                    <Link to="/csv-loader/1">CsvLoader</Link>
                 </li>
             </ul>
         </NavSC>
