@@ -7,6 +7,11 @@ export const NavContainer = styled.nav`
     align-items: center;
 `;
 
+export const NavContainerRight = styled.div`
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+`;
 export const LinkContainer = styled.div`
     border: 1px solid cyan;
     display: flex;
@@ -58,44 +63,17 @@ export const ContainerTable = styled.div`
     overflow-x: scroll;
 
 `;
-export const Table = styled.table`
-    overflow-x: scroll;
-    border:1px solid green;
-    border-collapse: collapse;
-    thead {
-        tr {
-            th {
-                color: #2F3640;
-                font-size: 11.3px;
-                font-weight: bold;
-                white-space: nowrap;
-                padding: 0 13.8px;
-                border: 1px solid pink;
-                text-align: left;
-                
-            }
-        }
-    }
-    tbody {
-        tr {
-            height: auto;
-            border-bottom: 1px solid  #E6E6E6;
-            td {
-                padding: 0 13.8px;
-                margin: 0;
-                white-space: nowrap;
-                border: 1px solid pink;
-                color: #989DA2;
-                font-size: 9.9px;
-                height: 57px;
-                p {
-                    margin: 0;
-                }
-            }
-        }
-    }
+export const ColumnTable = styled.div`
+    display: flex;
+    background: yellow;
 `;
-
+export const ColumnForm = styled.div`
+    display: flex;
+    p {
+        border: 1px solid grey;
+    }
+    
+`;
 //**************+ */Container modal *************+
 export const ContainerModal = styled.div`
     background: white;

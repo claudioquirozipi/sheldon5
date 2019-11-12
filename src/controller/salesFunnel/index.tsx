@@ -6,44 +6,97 @@ import SalesFunnelview3 from '../../view/salesFunnel/view3';
 import axios from 'axios';
 //Redux
 import {useSelector} from 'react-redux';
-
-
-function handleAxios(token: string, setIsData: any) {
-    console.log("salesfunel token", token);
+//Components
+import SalesFunnelModal from '../../view/salesFunnel/modal';
+import FilterController from './filter';
+//Components-library
+import ModalCQ from '../../components/modal/modal';
+interface iSalesFunnelNav {
+    setNumberView: any;
+    setNavFilter: iSetNavFilter;
+}
+interface iSetNavFilter {
+    names?: string;
+    funnel_status?: [];
+}
+interface iNavFilter {
+    names?: string;
+    funnel_status?: [];
+    company_sector?:string;
+    country?: string;
+}
+function handleSendMenssageAxios(e: any, token: string, dataSendMessage: {}, modalView:boolean, setModalView:any) {
+    e.preventDefault();
+    console.log("handleSendMenssageAxios hola", dataSendMessage);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token
+    }
+    axios.post(process.env.API + "campaign_create",
+        dataSendMessage    
+    ,
+        {headers: headers}
+    )
+    .then(({data}) => {
+        console.log("se enviaron los datos correctamente", data);
+        setModalView(!modalView);
+    })
+    .catch((error) => {
+        console.log("este es un error",error);
+    })
+}
+function handleAxios(token: string, setIsData: any, navFilter: iNavFilter) {
+    // console.log("salesfunel token", token);
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': token
     }
     axios.post(process.env.API + "find_contacts",{
-            "filters": {},
+            "filters": navFilter,
             "page": 1,
             "limit": 10
         },
         {headers: headers}
     )
     .then(({data}) => {
-        console.log("solicitó los datos con exito",data);
+        // console.log("solicitó los datos con exito",data, navFilter);
         setIsData(data.data.contacts);
     })
     .catch((error) => {
         console.log("este es un error",error);
-        setIsData(null);
+        setIsData([]);
     })
 };
 
 function ControllerSalesFunnel() {
-    const [numberView, setNumberView] = React.useState(1);
-    const [isData, setIsData] = React.useState(null);
     const token = useSelector( (state:any) => state.user.user.token);
+    const [numberView, setNumberView] = React.useState(1);
+    const [isData, setIsData] = React.useState([]);
+    const [navFilter, setNavFilter] = React.useState({});
+    const [modalView, setModalView] = React.useState(false);
     React.useEffect(() => {
-        handleAxios(token, setIsData);
-    },[]);
+        handleAxios(token, setIsData, navFilter);
+    },[navFilter]);
+
     return(
         <>
-            <SalesFunnelNav setNumberView={setNumberView}/>
-            {numberView==1 && isData ? <SalesFunnelview1 data={isData} /> :null}
-            {numberView==2 && isData ? <SalesFunnelview2 data={isData} /> :null}
-            {numberView==3 && isData ? <SalesFunnelview3 data={isData} /> :null}
+            <FilterController 
+                setNumberView={setNumberView} 
+                setNavFilter={setNavFilter} 
+                modalView={modalView} 
+                setModalView={setModalView}
+            />
+            {numberView==1 && isData.length > 0 ? <SalesFunnelview1 data={isData} /> :null}
+            {numberView==2 && isData.length > 0 ? <SalesFunnelview2 data={isData} /> :null}
+            {numberView==3 && isData.length > 0 ? <SalesFunnelview3 data={isData} /> :null}
+            <ModalCQ view={modalView}>
+                <SalesFunnelModal 
+                    modalView={modalView}
+                    setModalView={setModalView}
+                    handleSendMenssageAxios={handleSendMenssageAxios}
+                    token={token}
+                />
+            </ModalCQ>
         </>
     )
 }

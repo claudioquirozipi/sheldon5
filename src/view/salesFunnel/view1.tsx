@@ -1,5 +1,7 @@
 import * as React from 'react';
-
+//Redux 
+import {useDispatch} from 'react-redux';
+import {checkboxSelectAction} from '../../redux/accion/checkbox';
 //Components
 import GridContainerC from '../grid/gridContainerC';
 //Compenents-Library
@@ -8,7 +10,8 @@ import PageCQ from '../../components/page';
 import {
     ContainerDownload,
     ContainerTable,
-    Table
+    ColumnTable,
+    ColumnForm
 } from './styled';
 
 //Assets
@@ -18,9 +21,26 @@ import * as imgDownload from '../../assets/img/salesFunnel/download.svg';
 interface iHomeView1 {
     data: any[];
 }
+
+function handleChange(e:any,value: string[], setValue: any) {
+    if(e.target.checked) {
+        const returnValue = [...value, e.target.id]
+        setValue(returnValue);        
+    } else {
+        const returnValue = [...value].filter((val) => val!== e.target.id);
+        setValue(returnValue);
+    }
+}
 function HomeView1(props: iHomeView1) {
     const {data} = props;
-    console.log("esta es la data" , data);
+    const [value, setValue] = React.useState([]);
+    const dispatch = useDispatch();
+    const checkboxSelect = (checkboxS:string[]) => dispatch(checkboxSelectAction(checkboxS))
+    console.log("esta es la data", data);
+    React.useEffect(()=> {
+        checkboxSelect(value);
+        console.log("ocurrión un cambio en value",value);
+    }, [value]);
     return(
         <GridContainerC>
             <ContainerDownload>
@@ -32,113 +52,114 @@ function HomeView1(props: iHomeView1) {
             </ContainerDownload>
             <PageCQ>
             <ContainerTable>
-
-            <Table>
-                <thead>
-                    <tr>
-                        <th><h2>Funnel Status</h2></th>
-                        <th><h2>Last Update</h2></th>
-                        <th><h2>Next Action</h2></th>
-                        <th><h2>FollowUp</h2></th>
-                        <th><h2>DecisionMaker</h2></th>
-                        <th><h2>LastName</h2></th>
-                        <th><h2>Company Area</h2></th>
-                        <th><h2>Company Position</h2></th>
-                        <th><h2>Personal Mail</h2></th>
-                        <th><h2>Personal CompanyMail</h2></th>
-                        <th><h2>CellPhone Whatsapp</h2></th>
-                        <th><h2>Skype User</h2></th>
-                        <th><h2>HangOut User</h2></th>
-                        <th><h2>Linkedin URL</h2></th>
-                        <th><h2>Picture URL</h2></th>
-                        <th><h2>Facebook URL</h2></th>
-                        <th><h2>Instagram URL</h2></th>
-                        <th><h2>Interests</h2></th>
-                        <th><h2>Sex</h2></th>
-                        <th><h2>NSE</h2></th>
-                        <th><h2>Birthday</h2></th>
-                        <th><h2>Media Consumption</h2></th>
-                        <th><h2>Company LinkedIn URL</h2></th>
-                        <th><h2>Company Name</h2></th>
-                        <th><h2>Potential Size</h2></th>
-                        <th><h2>Company Sector</h2></th>
-                        <th><h2>Company Products</h2></th>
-                        <th><h2>Web URL</h2></th>
-                        <th><h2>Company Phone</h2></th>
-                        <th><h2>Sucursal Location</h2></th>
-                        <th><h2>City</h2></th>
-                        <th><h2>State</h2></th>
-                        <th><h2>Country</h2></th>
-                        <th><h2>NextPurchase Date</h2></th>
-                        <th><h2>Satisfaction DM</h2></th>
-                        <th><h2>Operator MailID</h2></th>
-                        <th><h2>Countable Number</h2></th>
-                        <th><h2>DM Countable</h2></th>
-                        <th><h2>Personal CountableMail</h2></th>
-                        <th><h2>CellPhone Countable</h2></th>
-                        <th><h2>Payment Date</h2></th>
-                        <th><h2>Frecuency</h2></th>
-                        <th><h2>Payment Method</h2></th>
-                        <th><h2>Payment Ammount</h2></th>
-                        <th><h2>Status Countable</h2></th>
-                        <th><h2>Payment Description</h2></th>
-                    </tr>
-                </thead>
-                <tbody>
+                <ColumnTable>
+                        <h2>checkbox</h2>
+                        <h2>Funnel Status</h2>
+                        {/* <h2>Last Update</h2> */}
+                        {/* <h2>Next Action</h2> */}
+                        {/* <h2>FollowUp</h2> */}
+                        <h2>DecisionMaker</h2>
+                        <h2>LastName</h2>
+                        <h2>Company Area</h2>
+                        <h2>Company Position</h2>
+                        <h2>Personal Mail</h2>
+                        <h2>Personal CompanyMail</h2>
+                        <h2>CellPhone Whatsapp</h2>
+                        <h2>Skype User</h2>
+                        <h2>HangOut User</h2>
+                        <h2>Linkedin URL</h2>
+                        <h2>Picture URL</h2>
+                        <h2>Facebook URL</h2>
+                        <h2>Instagram URL</h2>
+                        <h2>Interests</h2>
+                        <h2>Sex</h2>
+                        <h2>NSE</h2>
+                        <h2>Birthday</h2>
+                        <h2>Media Consumption</h2>
+                        <h2>Company LinkedIn URL</h2>
+                        <h2>Company Name</h2>
+                        <h2>Potential Size</h2>
+                        <h2>Company Sector</h2>
+                        <h2>Company Products</h2>
+                        <h2>Web URL</h2>
+                        <h2>Company Phone</h2>
+                        <h2>Sucursal Location</h2>
+                        <h2>City</h2>
+                        <h2>State</h2>
+                        <h2>Country</h2>
+                        <h2>NextPurchase Date</h2>
+                        <h2>Satisfaction DM</h2>
+                        <h2>Operator MailID</h2>
+                        <h2>Countable Number</h2>
+                        <h2>DM Countable</h2>
+                        <h2>Personal CountableMail</h2>
+                        <h2>CellPhone Countable</h2>
+                        <h2>Payment Date</h2>
+                        <h2>Frecuency</h2>
+                        <h2>Payment Method</h2>
+                        <h2>Payment Ammount</h2>
+                        <h2>Status Countable</h2>
+                        <h2>Payment Description</h2>
+                </ColumnTable>  
                     
 
-                    {data.map((data, i )=>{return(
-                        <tr key={i}>
-                            <td><p>{data.company_name}</p></td>
-                            <td><p>{"Last_Update"}</p></td>
-                            <td><p>{"Next_Action"}</p></td>
-                            <td><p>{"FollowUp"}</p></td>
-                            <td><p>{"DecisionMaker"}</p></td>
-                            <td><p>{"LastName"}</p></td>
-                            <td><p>{"Company_Area"}</p></td>
-                            <td><p>{"Company_Position"}</p></td>
-                            <td><p>{"Personal_Mail"}</p></td>
-                            <td><p>{"Personal_CompanyMail"}</p></td>
-                            <td><p>{"CellPhone_Whatsapp"}</p></td>
-                            <td><p>{"Skype_User"}</p></td>
-                            <td><p>{"HangOut_User"}</p></td>
-                            <td><p>{"Linkedin_URL"}</p></td>
-                            <td><p>{"Picture_URL"}</p></td>
-                            <td><p>{"Facebook_URL"}</p></td>
-                            <td><p>{"Instagram_URL"}</p></td>
-                            <td><p>{"Interests"}</p></td>
-                            <td><p>{"Sex"}</p></td>
-                            <td><p>{"NSE"}</p></td>
-                            <td><p>{"Birthday"}</p></td>
-                            <td><p>{"Media_Consumption"}</p></td>
-                            <td><p>{"Company_LinkedIn_URL"}</p></td>
-                            <td><p>{"Company_Name"}</p></td>
-                            <td><p>{"Potential_Size"}</p></td>
-                            <td><p>{"Company_Sector"}</p></td>
-                            <td><p>{"Company_Products"}</p></td>
-                            <td><p>{"Web_URL"}</p></td>
-                            <td><p>{"Company_Phone"}</p></td>
-                            <td><p>{"Sucursal_Location"}</p></td>
-                            <td><p>{"City"}</p></td>
-                            <td><p>{"State"}</p></td>
-                            <td><p>{"Country"}</p></td>
-                            <td><p>{"NextPurchase_Date"}</p></td>
-                            <td><p>{"Satisfaction_DM"}</p></td>
-                            <td><p>{"Operator_MailID"}</p></td>
-                            <td><p>{"Countable_Number"}</p></td>
-                            <td><p>{"DM_Countable"}</p></td>
-                            <td><p>{"Personal_CountableMail"}</p></td>
-                            <td><p>{"CellPhone_Countable"}</p></td>
-                            <td><p>{"Payment_Date"}</p></td>
-                            <td><p>{"Frecuency"}</p></td>
-                            <td><p>{"Payment_Method"}</p></td>
-                            <td><p>{"Payment_Ammount"}</p></td>
-                            <td><p>{"Status_Countable"}</p></td>
-                            <td><p>{"Payment_Description"}</p></td>
-                        </tr>
-                    )})}
-                </tbody>
-            </Table>
+                {data.map((data, i )=>{return(
+                    <ColumnForm key={i}>
+                        <p>
+                            <input 
+                                type="checkbox" 
+                                id={data._id} 
+                                onChange={(e) => handleChange(e,value, setValue)}
+                            />
+                        </p>
+                        <p>{data.funnel_status}</p>
+                        {/* <p>{"Last_Update"}</p> */}
+                        {/* <p>{"Next_Action"}</p> */}
+                        {/* <p>{"FollowUp"}</p> */}
+                        <p>{data.decisionmaker}</p>
+                        <p>{data.lastname}</p>
+                        <p>{data.company_area}</p>
+                        <p>{data.company_position}</p>
+                        <p>{data.personal_mail}</p>
+                        <p>{data.personal_companymail}</p>
+                        <p>{data.cellphone_whatsapp}</p>
+                        <p>{data.skype_user}</p>
+                        <p>{data.hangout_user}</p>
+                        <p>{data.linkedin_url}</p>
+                        <p>{data.picture_url}</p>
+                        <p>{data.facebook_url}</p>
+                        <p>{data.instagram_url}</p>
+                        <p>{data.interests.map((h:string,i:number)=>{return(<span key={i}>{h}</span>)})}</p>
+                        <p>{data.sex}</p>
+                        <p>{data.nse}</p>
+                        <p>{data.birthday}</p>
+                        <p>{data.media_consumption.map((h:string,i:number)=>(<span key={i}>{h}</span>))}</p>
+                        <p>{data.company_linkedin_url}</p>
+                        <p>{data.company_name}</p>
+                        <p>{data.potential_size}</p>
+                        <p>{data.company_sector}</p>
+                        <p>{data.company_products}</p>
+                        <p>{data.web_url}</p>
+                        <p>{data.company_phone}</p>
+                        <p>{data.sucursal_location}</p>
+                        <p>{data.city}</p>
+                        <p>{data.state}</p>
+                        <p>{data.country}</p>
+                        <p>{data.nextpurchase_date}</p>
+                        <p>{data.satisfaction_dm}</p>
+                        <p>{data.operator_mailid}</p>
+                        <p>{data.countable_number}</p>
+                        <p>{data.dm_countable}</p>
+                        <p>{data.personal_companymail}</p>
+                        <p>{data.cellphone_countable}</p>
+                        <p>{data.payment_date}</p>
+                        <p>{data.frecuency}</p>
+                        <p>{data.payment_method}</p>
+                        <p>{data.payment_ammount}</p>
+                        <p>{data.status_countable}</p>
+                        <p>{data.payment_description}</p>
+                    </ ColumnForm>
+                )})}
             </ContainerTable>
             </PageCQ>
         </GridContainerC>

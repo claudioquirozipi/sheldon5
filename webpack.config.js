@@ -58,6 +58,14 @@ module.exports = {
             '/api/find_contacts': {
                 target: 'http://167.71.248.71/find_contacts',
                 pathRewrite: { '^/api/find_contacts': '' }
+            },
+            '/api/campaign_create': {
+                target: 'http://167.71.248.71/campaign_create',
+                pathRewrite: { '^/api/campaign_create': '' }
+            },
+            '/api/suggest_contacts': {
+                target: 'http://167.71.248.71/suggest_contacts',
+                pathRewrite: { '^/api/suggest_contacts': '' }
             }
         }
     },
