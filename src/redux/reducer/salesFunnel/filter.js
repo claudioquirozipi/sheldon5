@@ -1,6 +1,6 @@
 import {
     FILTER_ONCHAGE
-} from '../types';
+} from '../../types';
 
 
 const inicialState = {

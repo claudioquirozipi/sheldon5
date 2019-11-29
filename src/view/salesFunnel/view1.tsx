@@ -1,9 +1,14 @@
 import * as React from 'react';
 //Redux 
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {checkboxSelectAction} from '../../redux/accion/checkbox';
+//Helpers
+import handleLoaderPage from '../../helpers/salesFunnel/loaderPage';
+import handleResetLoaderData from '../../helpers/salesFunnel/resetLoaderData';
+import {handleEditDataView1} from '../../helpers/salesFunnel/editDataView1';
 //Components
 import GridContainerC from '../grid/gridContainerC';
+import View1Form from './view1Form';
 //Compenents-Library
 import PageCQ from '../../components/page';
 //Styled-Components
@@ -32,135 +37,155 @@ function handleChange(e:any,value: string[], setValue: any) {
     }
 }
 function HomeView1(props: iHomeView1) {
-    const {data} = props;
     const [value, setValue] = React.useState([]);
+    //Redux
     const dispatch = useDispatch();
+    const token = useSelector( (state:any) => state.user.user.token);
+    const filter = useSelector( (state:any) => state.salesFunnelFilter.filter);
+    const pageCounter = useSelector((state:any)=>state.salesFunnelLoaderData.pageCounter);
+    const initialData = useSelector((state:any) => state.salesFunnelLoaderData.loaderData);
     const checkboxSelect = (checkboxS:string[]) => dispatch(checkboxSelectAction(checkboxS))
-    console.log("esta es la data", data);
     React.useEffect(()=> {
         checkboxSelect(value);
         console.log("ocurrión un cambio en value",value);
     }, [value]);
+
+    //Variables Form
+    const [positionAndDataForm, setPositionAndDataForm] = React.useState({top: 50, left: 50, id:"", className:"", data:{}});
+    
     return(
         <GridContainerC>
             <ContainerDownload>
-                <h2>Contactos en lista:<span> {data.length}</span></h2>
+                <h2>Contactos en lista:<span> {initialData.length}</span></h2>
                 <div>
                     <img src={imgDownload}/>
                     <h3>Download contacts</h3>
                 </div>
             </ContainerDownload>
             <PageCQ>
-            <ContainerTable>
-                <ColumnTable>
-                        <h2>checkbox</h2>
-                        <h2>Funnel Status</h2>
-                        {/* <h2>Last Update</h2> */}
-                        {/* <h2>Next Action</h2> */}
-                        {/* <h2>FollowUp</h2> */}
-                        <h2>DecisionMaker</h2>
-                        <h2>LastName</h2>
-                        <h2>Company Area</h2>
-                        <h2>Company Position</h2>
-                        <h2>Personal Mail</h2>
-                        <h2>Personal CompanyMail</h2>
-                        <h2>CellPhone Whatsapp</h2>
-                        <h2>Skype User</h2>
-                        <h2>HangOut User</h2>
-                        <h2>Linkedin URL</h2>
-                        <h2>Picture URL</h2>
-                        <h2>Facebook URL</h2>
-                        <h2>Instagram URL</h2>
-                        <h2>Interests</h2>
-                        <h2>Sex</h2>
-                        <h2>NSE</h2>
-                        <h2>Birthday</h2>
-                        <h2>Media Consumption</h2>
-                        <h2>Company LinkedIn URL</h2>
-                        <h2>Company Name</h2>
-                        <h2>Potential Size</h2>
-                        <h2>Company Sector</h2>
-                        <h2>Company Products</h2>
-                        <h2>Web URL</h2>
-                        <h2>Company Phone</h2>
-                        <h2>Sucursal Location</h2>
-                        <h2>City</h2>
-                        <h2>State</h2>
-                        <h2>Country</h2>
-                        <h2>NextPurchase Date</h2>
-                        <h2>Satisfaction DM</h2>
-                        <h2>Operator MailID</h2>
-                        <h2>Countable Number</h2>
-                        <h2>DM Countable</h2>
-                        <h2>Personal CountableMail</h2>
-                        <h2>CellPhone Countable</h2>
-                        <h2>Payment Date</h2>
-                        <h2>Frecuency</h2>
-                        <h2>Payment Method</h2>
-                        <h2>Payment Ammount</h2>
-                        <h2>Status Countable</h2>
-                        <h2>Payment Description</h2>
-                </ColumnTable>  
-                    
-
-                {data.map((data, i )=>{return(
-                    <ColumnForm key={i}>
-                        <p>
-                            <input 
-                                type="checkbox" 
-                                id={data._id} 
-                                onChange={(e) => handleChange(e,value, setValue)}
-                            />
-                        </p>
-                        <p>{data.funnel_status}</p>
-                        {/* <p>{"Last_Update"}</p> */}
-                        {/* <p>{"Next_Action"}</p> */}
-                        {/* <p>{"FollowUp"}</p> */}
-                        <p>{data.decisionmaker}</p>
-                        <p>{data.lastname}</p>
-                        <p>{data.company_area}</p>
-                        <p>{data.company_position}</p>
-                        <p>{data.personal_mail}</p>
-                        <p>{data.personal_companymail}</p>
-                        <p>{data.cellphone_whatsapp}</p>
-                        <p>{data.skype_user}</p>
-                        <p>{data.hangout_user}</p>
-                        <p>{data.linkedin_url}</p>
-                        <p>{data.picture_url}</p>
-                        <p>{data.facebook_url}</p>
-                        <p>{data.instagram_url}</p>
-                        <p>{data.interests.map((h:string,i:number)=>{return(<span key={i}>{h}</span>)})}</p>
-                        <p>{data.sex}</p>
-                        <p>{data.nse}</p>
-                        <p>{data.birthday}</p>
-                        <p>{data.media_consumption.map((h:string,i:number)=>(<span key={i}>{h}</span>))}</p>
-                        <p>{data.company_linkedin_url}</p>
-                        <p>{data.company_name}</p>
-                        <p>{data.potential_size}</p>
-                        <p>{data.company_sector}</p>
-                        <p>{data.company_products}</p>
-                        <p>{data.web_url}</p>
-                        <p>{data.company_phone}</p>
-                        <p>{data.sucursal_location}</p>
-                        <p>{data.city}</p>
-                        <p>{data.state}</p>
-                        <p>{data.country}</p>
-                        <p>{data.nextpurchase_date}</p>
-                        <p>{data.satisfaction_dm}</p>
-                        <p>{data.operator_mailid}</p>
-                        <p>{data.countable_number}</p>
-                        <p>{data.dm_countable}</p>
-                        <p>{data.personal_companymail}</p>
-                        <p>{data.cellphone_countable}</p>
-                        <p>{data.payment_date}</p>
-                        <p>{data.frecuency}</p>
-                        <p>{data.payment_method}</p>
-                        <p>{data.payment_ammount}</p>
-                        <p>{data.status_countable}</p>
-                        <p>{data.payment_description}</p>
-                    </ ColumnForm>
-                )})}
-            </ContainerTable>
+                <View1Form positionAndDataForm={positionAndDataForm} token={token}/>
+                <table>
+                    <thead>
+                    <tr>
+                            <th>checkbox</th>
+                            <th>Funnel Status</th>
+                            {/* <th>Last Update</th> */}
+                            {/* <th>Next Action</th> */}
+                            {/* <th>FollowUp</th> */}
+                            <th>DecisionMaker</th>
+                            <th>LastName</th>
+                            <th>Company Area</th>
+                            <th>Company Position</th>
+                            <th>Personal Mail</th>
+                            <th>Personal CompanyMail</th>
+                            <th>CellPhone Whatsapp</th>
+                            <th>Skype User</th>
+                            <th>HangOut User</th>
+                            <th>Linkedin URL</th>
+                            <th>Picture URL</th>
+                            <th>Facebook URL</th>
+                            <th>Instagram URL</th>
+                            <th>Interests</th>
+                            <th>Sex</th>
+                            <th>NSE</th>
+                            <th>Birthday</th>
+                            <th>Media Consumption</th>
+                            <th>Company LinkedIn URL</th>
+                            <th>Company Name</th>
+                            <th>Potential Size</th>
+                            <th>Company Sector</th>
+                            <th>Company Products</th>
+                            <th>Web URL</th>
+                            <th>Company Phone</th>
+                            <th>Sucursal Location</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>NextPurchase Date</th>
+                            <th>Satisfaction DM</th>
+                            <th>Operator MailID</th>
+                            <th>Countable Number</th>
+                            <th>DM Countable</th>
+                            <th>Personal CountableMail</th>
+                            <th>CellPhone Countable</th>
+                            <th>Payment Date</th>
+                            <th>Frecuency</th>
+                            <th>Payment Method</th>
+                            <th>Payment Ammount</th>
+                            <th>Status Countable</th>
+                            <th>Payment Description</th>
+                    </tr>  
+                    </thead>
+                    <tbody>
+                    {initialData.map((data: any, i:number )=>{return(
+                        
+                        <tr 
+                            key={i} 
+                            onClick={(e)=>handleEditDataView1(
+                                e, 
+                                data._id, 
+                                setPositionAndDataForm, 
+                                initialData
+                        )}>
+                            <td>
+                                <input 
+                                    type="checkbox" 
+                                    id={data._id} 
+                                    onChange={(e) => handleChange(e,value, setValue)}
+                                />
+                            </td>
+                            <td>{data.funnel_status}</td>
+                            {/* <td>{"Last_Update"}</td> */}
+                            {/* <td>{"Next_Action"}</td> */}
+                            {/* <td>{"FollowUp"}</td> */}
+                            <td className="decisionmaker">{data.decisionmaker}</td>
+                            <td>{data.lastname}</td>
+                            <td>{data.company_area}</td>
+                            <td>{data.company_position}</td>
+                            <td>{data.personal_mail}</td>
+                            <td>{data.personal_companymail}</td>
+                            <td>{data.cellphone_whatsapp}</td>
+                            <td>{data.skype_user}</td>
+                            <td>{data.hangout_user}</td>
+                            <td>{data.linkedin_url}</td>
+                            <td>{data.picture_url}</td>
+                            <td>{data.facebook_url}</td>
+                            <td>{data.instagram_url}</td>
+                            <td>{data.interests.map((h:string,i:number)=>{return(<span key={i}>{h}</span>)})}</td>
+                            <td>{data.sex}</td>
+                            <td>{data.nse}</td>
+                            <td>{data.birthday}</td>
+                            <td>{data.media_consumption.map((h:string,i:number)=>(<span key={i}>{h}</span>))}</td>
+                            <td>{data.company_linkedin_url}</td>
+                            <td>{data.company_name}</td>
+                            <td>{data.potential_size}</td>
+                            <td>{data.company_sector}</td>
+                            <td>{data.company_products}</td>
+                            <td>{data.web_url}</td>
+                            <td>{data.company_phone}</td>
+                            <td>{data.sucursal_location}</td>
+                            <td>{data.city}</td>
+                            <td>{data.state}</td>
+                            <td>{data.country}</td>
+                            <td>{data.nextpurchase_date}</td>
+                            <td>{data.satisfaction_dm}</td>
+                            <td>{data.operator_mailid}</td>
+                            <td>{data.countable_number}</td>
+                            <td>{data.dm_countable}</td>
+                            <td>{data.personal_companymail}</td>
+                            <td>{data.cellphone_countable}</td>
+                            <td>{data.payment_date}</td>
+                            <td>{data.frecuency}</td>
+                            <td>{data.payment_method}</td>
+                            <td>{data.payment_ammount}</td>
+                            <td>{data.status_countable}</td>
+                            <td>{data.payment_description}</td>
+                        </tr>
+                    )})}
+                </tbody>
+                </table>
+                <button onClick={()=>handleLoaderPage(dispatch, token, filter, pageCounter)}>Cargar más</button>
+                <button onClick={()=>handleResetLoaderData(dispatch, token, filter, pageCounter)}>reset loader</button>
             </PageCQ>
         </GridContainerC>
     )

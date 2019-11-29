@@ -66,6 +66,10 @@ module.exports = {
             '/api/suggest_contacts': {
                 target: 'http://167.71.248.71/suggest_contacts',
                 pathRewrite: { '^/api/suggest_contacts': '' }
+            },
+            '/api/update_contact': {
+                target: 'http://167.71.248.71/update_contact',
+                pathRewrite: { '^/api/update_contact': '' }
             }
         }
     },

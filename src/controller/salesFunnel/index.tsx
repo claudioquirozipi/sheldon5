@@ -54,7 +54,7 @@ function handleAxios(token: string, setIsData: any, navFilter: iNavFilter) {
     axios.post(process.env.API + "find_contacts",{
             "filters": navFilter,
             "page": 1,
-            "limit": 10
+            "limit": 100
         },
         {headers: headers}
     )
@@ -72,21 +72,19 @@ function ControllerSalesFunnel() {
     const token = useSelector( (state:any) => state.user.user.token);
     const [numberView, setNumberView] = React.useState(1);
     const [isData, setIsData] = React.useState([]);
-    const [navFilter, setNavFilter] = React.useState({});
     const [modalView, setModalView] = React.useState(false);
-    React.useEffect(() => {
-        handleAxios(token, setIsData, navFilter);
-    },[navFilter]);
+    // React.useEffect(() => {
+    //     handleAxios(token, setIsData, navFilter);
+    // },[navFilter]);
 
     return(
         <>
             <FilterController 
                 setNumberView={setNumberView} 
-                setNavFilter={setNavFilter} 
                 modalView={modalView} 
                 setModalView={setModalView}
             />
-            {numberView==1 && isData.length > 0 ? <SalesFunnelview1 data={isData} /> :null}
+            <SalesFunnelview1 />
             {numberView==2 && isData.length > 0 ? <SalesFunnelview2 data={isData} /> :null}
             {numberView==3 && isData.length > 0 ? <SalesFunnelview3 data={isData} /> :null}
             <ModalCQ view={modalView}>

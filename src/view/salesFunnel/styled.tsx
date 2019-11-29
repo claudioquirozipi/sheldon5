@@ -5,6 +5,7 @@ export const NavContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 21px;
 `;
 
 export const NavContainerRight = styled.div`

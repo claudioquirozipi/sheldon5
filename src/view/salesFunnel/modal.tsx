@@ -84,7 +84,7 @@ function SalesFunnelModal(props: any) {
     const [message, setMessge] = React.useState("");
     const [date, setDate] = React.useState("");
     const [time, setTime] = React.useState("");
-    const filters = useSelector( (state:any) => state.filter.filter);
+    const filters = useSelector( (state:any) => state.salesFunnelFilter.filter);
     const items = useSelector( (state:any) => state.checkboxSelect.checkbox);
 
     React.useEffect(()=>{

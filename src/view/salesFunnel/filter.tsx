@@ -11,9 +11,17 @@ import {
     LinkContainer,
     NavContainerRight
 } from './styled';
+import {
+    ButonSend,
+    InputList,
+    FormSend
+} from './filterStyled';
 import * as img1 from '../../assets/img/salesFunnel/database.svg';
 import * as img2 from '../../assets/img/salesFunnel/filter.svg';
 import * as img3 from '../../assets/img/salesFunnel/calendar.svg';
+import * as buttonSend from '../../assets/img/salesFunnel/buttonSend.svg';
+import * as status from '../../assets/img/salesFunnel/status.svg';
+import * as potential from '../../assets/img/salesFunnel/potential.svg';
 
 //Data 
 import {
@@ -38,7 +46,7 @@ interface iSalesFunnelFilter {
 function SalesFunnelFilter(props: iSalesFunnelFilter) {
     const {setNumberView, setDataFilter, modalView, setModalView, filterOpctionsName, filterOpctionsContry, filterOpctionsCompany} = props;
     
-    console.log("ya no se que poner para hacer pruebas :(", filterOpctionsName);
+    
     return(
         <GridContainerB>
             <NavContainer>
@@ -50,15 +58,8 @@ function SalesFunnelFilter(props: iSalesFunnelFilter) {
                 <div>
                     
                     <NavContainerRight>
-                        <form>
-                            {/* <datalist id="nameOption">
-                                {filterOpctionsName.length > 0 ? 
-                                    filterOpctionsName.map((dato, i)=>{
-                                        <option value={dato.name} key={i} />
-                                    })
-                                    : null
-                                }
-                            </datalist> */}
+                        <FormSend>
+                            
                             <datalist id="nameOption">
                                 {filterOpctionsName.length > 0 ? 
                                     filterOpctionsName.map((dato, i)=>{
@@ -69,7 +70,10 @@ function SalesFunnelFilter(props: iSalesFunnelFilter) {
                                     : null
                                 }
                             </datalist>
-                            <input placeholder="Name" list="nameOption" onChange={(e) => setDataFilter.setName(e.target.value)} />
+                            <InputList>
+                                <img src={potential} alt=""/>
+                                <input placeholder="Name" list="nameOption" onChange={(e) => setDataFilter.setName(e.target.value)} />
+                            </InputList>
                            
                             <datalist id="SectorOption">
                                 {filterOpctionsCompany.length > 0 ? 
@@ -81,7 +85,10 @@ function SalesFunnelFilter(props: iSalesFunnelFilter) {
                                     : null
                                 }
                             </datalist>
-                            <input placeholder="Company sector" list="SectorOption" onChange={(e) => setDataFilter.setCompanySector(e.target.value)} />
+                            <InputList>
+                                <img src={potential} alt=""/>
+                                <input placeholder="Sector" list="SectorOption" onChange={(e) => setDataFilter.setCompanySector(e.target.value)} />
+                            </InputList>
                             
                             <datalist id="ContryOption">
                                 {filterOpctionsContry.length > 0 ? 
@@ -93,19 +100,27 @@ function SalesFunnelFilter(props: iSalesFunnelFilter) {
                                         : null
                                     }
                             </datalist>
-                            <input placeholder="Contry" list="ContryOption" onChange={(e) => setDataFilter.setCountry(e.target.value)} />
+                            <InputList>
+                            <img src={potential} alt=""/>
+                                <input placeholder="Contry" list="ContryOption" onChange={(e) => setDataFilter.setCountry(e.target.value)} />
+                            </InputList>
                             <SelectMultiple 
-                                title="Funnel Status"
+                                icon={status}
+                                title="Status"
                                 onChange={setDataFilter.setFunnelStatus} 
                                 data={dataFunnelStatus}
                             />
                             <SelectMultiple 
-                                title="Potential Size"
+                                icon={potential}
+                                title="Potential"
                                 onChange={setDataFilter.setPotentialSize} 
                                 data={dataPotencialSize}
                             />
-                        </form>
-                        <button onClick={()=>setModalView(!modalView)}>Send</button>
+                        </FormSend>
+                        <ButonSend onClick={()=>setModalView(!modalView)}>
+                            <img src={buttonSend} />
+                            Send
+                        </ButonSend>
                     </NavContainerRight>
                 </div>
             </NavContainer>
