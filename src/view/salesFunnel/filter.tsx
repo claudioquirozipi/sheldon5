@@ -1,9 +1,10 @@
 import * as React from 'react';
-
+//Redux
+import {useSelector, useDispatch} from 'react-redux';
 //Components
 import GridContainerB from '../grid/gridContainerB';
 import SelectMultiple from './selectMultiple';
-
+import InputAndSelectMultiple from './filterInputAndSelectMultiple';
 
 //Styled-Components
 import {
@@ -44,8 +45,19 @@ interface iSalesFunnelFilter {
 }
 
 function SalesFunnelFilter(props: iSalesFunnelFilter) {
-    const {setNumberView, setDataFilter, modalView, setModalView, filterOpctionsName, filterOpctionsContry, filterOpctionsCompany} = props;
-    
+    const {
+        setNumberView, 
+        setDataFilter, 
+        modalView, 
+        setModalView, 
+        filterOpctionsName, 
+        filterOpctionsContry, 
+        filterOpctionsCompany
+    } = props;
+    const [filter, setFilter] = React.useState({
+
+    })
+    const token = useSelector( (state:any) => state.user.user.token);
     
     return(
         <GridContainerB>
@@ -59,37 +71,12 @@ function SalesFunnelFilter(props: iSalesFunnelFilter) {
                     
                     <NavContainerRight>
                         <FormSend>
-                            
-                            <datalist id="nameOption">
-                                {filterOpctionsName.length > 0 ? 
-                                    filterOpctionsName.map((dato, i)=>{
-                                        return(
-                                        <option value={dato.name} key={i} />
-                                        )
-                                    })
-                                    : null
-                                }
-                            </datalist>
-                            <InputList>
-                                <img src={potential} alt=""/>
-                                <input placeholder="Name" list="nameOption" onChange={(e) => setDataFilter.setName(e.target.value)} />
-                            </InputList>
-                           
-                            <datalist id="SectorOption">
-                                {filterOpctionsCompany.length > 0 ? 
-                                    filterOpctionsCompany.map((dato, i)=>{
-                                        return(
-                                        <option value={dato} key={i} />
-                                        )
-                                    })
-                                    : null
-                                }
-                            </datalist>
-                            <InputList>
-                                <img src={potential} alt=""/>
-                                <input placeholder="Sector" list="SectorOption" onChange={(e) => setDataFilter.setCompanySector(e.target.value)} />
-                            </InputList>
-                            
+                            <InputAndSelectMultiple 
+                                title="Name"
+                                setDataFilter={setDataFilter.setName}
+                                token={token}
+                                key="name"
+                            />
                             <datalist id="ContryOption">
                                 {filterOpctionsContry.length > 0 ? 
                                     filterOpctionsContry.map((dato, i)=>{

@@ -62,7 +62,7 @@ export const ContainerDownload = styled.div`
 export const ContainerTable = styled.div`
     border: 1px solid red;
     overflow-x: scroll;
-
+    width: 100%;
 `;
 export const ColumnTable = styled.div`
     display: flex;

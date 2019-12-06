@@ -2,6 +2,7 @@ import * as React from 'react';
 //Redux 
 import {useSelector, useDispatch} from 'react-redux';
 import {checkboxSelectAction} from '../../redux/accion/checkbox';
+import {orderByAcction} from '../../redux/accion/salesFunnel/loaderDataAcction';
 //Helpers
 import handleLoaderPage from '../../helpers/salesFunnel/loaderPage';
 import handleResetLoaderData from '../../helpers/salesFunnel/resetLoaderData';
@@ -36,8 +37,16 @@ function handleChange(e:any,value: string[], setValue: any) {
         setValue(returnValue);
     }
 }
+function handleOrderBy(e: any, orderBy: string, setOrderBy: any, dispatch: any ) {
+    setOrderBy(e.target.value);
+    console.log("order by", e.target.value);
+    const orderByRedux = (filterOrderBy:string)=>dispatch(orderByAcction(filterOrderBy));
+    orderByRedux(e.target.value);
+}
 function HomeView1(props: iHomeView1) {
     const [value, setValue] = React.useState([]);
+    const [viewSubFilter, setViewSubFilter] = React.useState("1");
+    const [orderBy, setOrderBy] = React.useState("1");
     //Redux
     const dispatch = useDispatch();
     const token = useSelector( (state:any) => state.user.user.token);
@@ -49,14 +58,46 @@ function HomeView1(props: iHomeView1) {
         checkboxSelect(value);
         console.log("ocurrión un cambio en value",value);
     }, [value]);
-
+    
     //Variables Form
-    const [positionAndDataForm, setPositionAndDataForm] = React.useState({top: 50, left: 50, id:"", className:"", data:{}});
+    const [positionAndDataForm, setPositionAndDataForm] = React.useState({
+        top: 50, 
+        left: 50, 
+        id:"", 
+        className:"", 
+        data:{}, 
+        type:{
+            text: false, 
+            textarea: false,
+            email: false,
+            date: false,
+            selectMultipleSimple: false,
+            selectMultiple: false
+        },
+        options: []
+    });
     
     return(
         <GridContainerC>
             <ContainerDownload>
                 <h2>Contactos en lista:<span> {initialData.length}</span></h2>
+                <h4>Order by: {orderBy}</h4>
+                <select name="" id="" onChange={(e)=>handleOrderBy(e,orderBy, setOrderBy, dispatch)}>
+                    <option value="lastname">Last date update</option>
+                    <option value="decisionmaker">Nombre y Apellido</option>
+                    <option value="decisionmaker">Status</option>
+                    <option value="decisionmaker">FollowUp</option>
+                    <option value="decisionmaker">Next action</option>
+                </select>
+                <h4>table: {viewSubFilter}</h4>
+                <select name="" id="" onChange={(e)=>setViewSubFilter(e.target.value)}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
                 <div>
                     <img src={imgDownload}/>
                     <h3>Download contacts</h3>
@@ -64,14 +105,19 @@ function HomeView1(props: iHomeView1) {
             </ContainerDownload>
             <PageCQ>
                 <View1Form positionAndDataForm={positionAndDataForm} token={token}/>
-                <table>
+                <ContainerTable>
+                    <table>
+                    
                     <thead>
                     <tr>
+                        {viewSubFilter==="1" ?<>
                             <th>checkbox</th>
                             <th>Funnel Status</th>
-                            {/* <th>Last Update</th> */}
-                            {/* <th>Next Action</th> */}
-                            {/* <th>FollowUp</th> */}
+                            <th>Last Update</th>
+                            <th>Next Action</th>
+                            <th>FollowUp</th>
+                        </>:null }
+                        {viewSubFilter==="2" ?<>
                             <th>DecisionMaker</th>
                             <th>LastName</th>
                             <th>Company Area</th>
@@ -90,6 +136,8 @@ function HomeView1(props: iHomeView1) {
                             <th>NSE</th>
                             <th>Birthday</th>
                             <th>Media Consumption</th>
+                        </>:null}
+                        {viewSubFilter==="3" ?<>
                             <th>Company LinkedIn URL</th>
                             <th>Company Name</th>
                             <th>Potential Size</th>
@@ -97,23 +145,30 @@ function HomeView1(props: iHomeView1) {
                             <th>Company Products</th>
                             <th>Web URL</th>
                             <th>Company Phone</th>
+                        </>:null}
+                        {viewSubFilter==="4" ?<>
                             <th>Sucursal Location</th>
                             <th>City</th>
                             <th>State</th>
                             <th>Country</th>
-                            <th>NextPurchase Date</th>
+                        </>:null}
+                        {viewSubFilter==="5" ?<>
+                            <th>Frecuency</th>
                             <th>Satisfaction DM</th>
                             <th>Operator MailID</th>
+                        </>:null}
+                        {viewSubFilter==="6" ?<>
                             <th>Countable Number</th>
                             <th>DM Countable</th>
                             <th>Personal CountableMail</th>
                             <th>CellPhone Countable</th>
                             <th>Payment Date</th>
-                            <th>Frecuency</th>
                             <th>Payment Method</th>
                             <th>Payment Ammount</th>
                             <th>Status Countable</th>
                             <th>Payment Description</th>
+                            <th>NextPurchase Date</th>
+                        </>:null}
                     </tr>  
                     </thead>
                     <tbody>
@@ -127,63 +182,76 @@ function HomeView1(props: iHomeView1) {
                                 setPositionAndDataForm, 
                                 initialData
                         )}>
-                            <td>
-                                <input 
-                                    type="checkbox" 
-                                    id={data._id} 
-                                    onChange={(e) => handleChange(e,value, setValue)}
-                                />
-                            </td>
-                            <td>{data.funnel_status}</td>
-                            {/* <td>{"Last_Update"}</td> */}
-                            {/* <td>{"Next_Action"}</td> */}
-                            {/* <td>{"FollowUp"}</td> */}
-                            <td className="decisionmaker">{data.decisionmaker}</td>
-                            <td>{data.lastname}</td>
-                            <td>{data.company_area}</td>
-                            <td>{data.company_position}</td>
-                            <td>{data.personal_mail}</td>
-                            <td>{data.personal_companymail}</td>
-                            <td>{data.cellphone_whatsapp}</td>
-                            <td>{data.skype_user}</td>
-                            <td>{data.hangout_user}</td>
-                            <td>{data.linkedin_url}</td>
-                            <td>{data.picture_url}</td>
-                            <td>{data.facebook_url}</td>
-                            <td>{data.instagram_url}</td>
-                            <td>{data.interests.map((h:string,i:number)=>{return(<span key={i}>{h}</span>)})}</td>
-                            <td>{data.sex}</td>
-                            <td>{data.nse}</td>
-                            <td>{data.birthday}</td>
-                            <td>{data.media_consumption.map((h:string,i:number)=>(<span key={i}>{h}</span>))}</td>
-                            <td>{data.company_linkedin_url}</td>
-                            <td>{data.company_name}</td>
-                            <td>{data.potential_size}</td>
-                            <td>{data.company_sector}</td>
-                            <td>{data.company_products}</td>
-                            <td>{data.web_url}</td>
-                            <td>{data.company_phone}</td>
-                            <td>{data.sucursal_location}</td>
-                            <td>{data.city}</td>
-                            <td>{data.state}</td>
-                            <td>{data.country}</td>
-                            <td>{data.nextpurchase_date}</td>
-                            <td>{data.satisfaction_dm}</td>
-                            <td>{data.operator_mailid}</td>
-                            <td>{data.countable_number}</td>
-                            <td>{data.dm_countable}</td>
-                            <td>{data.personal_companymail}</td>
-                            <td>{data.cellphone_countable}</td>
-                            <td>{data.payment_date}</td>
-                            <td>{data.frecuency}</td>
-                            <td>{data.payment_method}</td>
-                            <td>{data.payment_ammount}</td>
-                            <td>{data.status_countable}</td>
-                            <td>{data.payment_description}</td>
+                            {viewSubFilter==="1" ?<>
+                                <td>
+                                    <input 
+                                        type="checkbox" 
+                                        id={data._id} 
+                                        onChange={(e) => handleChange(e,value, setValue)}
+                                        />
+                                </td>
+                                <td className="funnel_status">{data.funnel_status}</td>
+                                {/* <td className="Last_Update">{"Last_Update"}</td> */}
+                                {/* <td className="Next_Action">{"Next_Action"}</td> */}
+                                {/* <td className="FollowUp">{"FollowUp"}</td> */}
+                            </>:null}
+                            {viewSubFilter==="2" ?<>
+                                <td className="decisionmaker">{data.decisionmaker}</td>
+                                <td className="lastname">{data.lastname}</td>
+                                <td className="company_area">{data.company_area}</td>
+                                <td className="company_position">{data.company_position}</td>
+                                <td className="personal_mail">{data.personal_mail}</td>
+                                <td className="personal_companymail">{data.personal_companymail}</td>
+                                <td className="cellphone_whatsapp">{data.cellphone_whatsapp}</td>
+                                <td className="skype_user">{data.skype_user}</td>
+                                <td className="hangout_user">{data.hangout_user}</td>
+                                <td className="linkedin_url">{data.linkedin_url}</td>
+                                <td className="picture_url">{data.picture_url}</td>
+                                <td className="facebook_url">{data.facebook_url}</td>
+                                <td className="instagram_url">{data.instagram_url}</td>
+                                <td className="interests">{data.interests.map((h:string,i:number)=>{return(<span key={i}>{h}</span>)})}</td>
+                                <td className="sex">{data.sex}</td>
+                                <td className="nse">{data.nse}</td>
+                                <td className="birthday">{data.birthday}</td>
+                                <td className="media_consumption">{data.media_consumption.map((h:string,i:number)=>(<span key={i}>{h}</span>))}</td>
+                            </>:null}
+                            {viewSubFilter==="3" ?<>
+                                <td className="company_linkedin_url">{data.company_linkedin_url}</td>
+                                <td className="company_name">{data.company_name}</td>
+                                <td className="potential_size">{data.potential_size}</td>
+                                <td className="company_sector">{data.company_sector}</td>
+                                <td className="company_products">{data.company_products}</td>
+                                <td className="web_url">{data.web_url}</td>
+                                <td className="company_phone">{data.company_phone}</td>
+                            </>:null}
+                            {viewSubFilter==="4" ?<>
+                                <td className="sucursal_location">{data.sucursal_location}</td>
+                                <td className="city">{data.city}</td>
+                                <td className="state">{data.state}</td>
+                                <td className="country">{data.country}</td>
+                            </>:null}
+                            {viewSubFilter==="5" ?<>
+                                <td className="frecuency">{data.frecuency}</td>
+                                <td className="satisfaction_dm">{data.satisfaction_dm}</td>
+                                <td className="operator_mailid">{data.operator_mailid}</td>
+                            </>:null}
+                            {viewSubFilter==="6" ?<>
+                                <td className="countable_number">{data.countable_number}</td>
+                                <td className="dm_countable">{data.dm_countable}</td>
+                                <td className="personal_companymail">{data.personal_companymail}</td>
+                                <td className="cellphone_countable">{data.cellphone_countable}</td>
+                                <td className="payment_date">{data.payment_date}</td>
+                                <td className="payment_method">{data.payment_method}</td>
+                                <td className="payment_ammount">{data.payment_ammount}</td>
+                                <td className="status_countable">{data.status_countable}</td>
+                                <td className="payment_description">{data.payment_description}</td>
+                                <td className="nextpurchase_date">{data.nextpurchase_date}</td>
+                            </>:null}
                         </tr>
                     )})}
                 </tbody>
                 </table>
+                </ContainerTable>
                 <button onClick={()=>handleLoaderPage(dispatch, token, filter, pageCounter)}>Cargar más</button>
                 <button onClick={()=>handleResetLoaderData(dispatch, token, filter, pageCounter)}>reset loader</button>
             </PageCQ>

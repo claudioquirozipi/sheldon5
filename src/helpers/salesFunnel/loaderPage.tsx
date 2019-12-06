@@ -11,17 +11,19 @@ export default async function handleLoaderPage(dispatch:any, token: string, filt
         'Content-Type': 'application/json',
         'Authorization': token
     }
-    await axios.post(process.env.API + "find_contacts",{
+    if(pageCounter >0) {
+        await axios.post(process.env.API + "find_contacts",{
             "filters": filter,
             "page": pageCounter,
             "limit": 3
         },
         {headers: headers}
-    )
-    .then(({data}) => {
-        increaseData(data.data.contacts)
-    })
-    .catch((error) => {
-        console.log("este es un error",error);
-    })
+        )
+        .then(({data}) => {
+            increaseData(data.data.contacts)
+        })
+        .catch((error) => {
+            console.log("este es un error",error);
+        })
+    }
 }

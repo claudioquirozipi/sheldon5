@@ -91,7 +91,11 @@ function SelectMultiple(props: iSelectMultiple) {
                         return(
                             <li key={i}>
                                 <label>
-                                    <input value={dato.value} type="checkbox" onChange={(e) => handleChange(e,value, setValue)}/>
+                                    <input 
+                                        value={dato.value} 
+                                        type="checkbox" 
+                                        onChange={(e) => handleChange(e,value, setValue)}
+                                    />
                                     {dato.text}   
                                 </label>
                             </li>

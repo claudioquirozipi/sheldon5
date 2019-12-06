@@ -1,6 +1,7 @@
 import {
     LOADER_DATA,
-    RESET_DATA
+    RESET_DATA,
+    ORDER_BY
 } from '../../types';
 
 
@@ -11,4 +12,8 @@ export const loaderDataAcction = (payload) => ({
 });
 export const resetDataAcction = () => ({
     type: RESET_DATA
+});
+export const orderByAcction = (payload) => ({
+    type: ORDER_BY,
+    payload
 });

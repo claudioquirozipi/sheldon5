@@ -30,10 +30,10 @@ function FilterController(props: iFilterController) {
     const {setNumberView, modalView, setModalView} = props;
     const dispatch = useDispatch();
     //filter parameter
-    const [name, setName] = React.useState("");
+    const [name, setName] = React.useState([]);
     const [funnelStatus, setFunnelStatus] = React.useState([]);
-    const [companySector, setCompanySector] = React.useState("");
-    const [country, setCountry] = React.useState("");
+    const [companySector, setCompanySector] = React.useState([]);
+    const [country, setCountry] = React.useState();
     const [potentialSize, setPotentialSize] = React.useState([]);
     let setDataFilter: iSetDataFilter= {};
     setDataFilter.setName = setName;
@@ -51,10 +51,10 @@ function FilterController(props: iFilterController) {
     const pageCounter = useSelector((state:any)=>state.salesFunnelLoaderData.pageCounter);
 
     //Filter Parameter
-    React.useEffect(()=>{
-        handleFilterOnChange(name, funnelStatus, companySector, country, potentialSize, dispatch);
-        handleResetLoaderData(dispatch, token, filter, pageCounter);
-    },[name, funnelStatus, companySector, country, potentialSize])
+    // React.useEffect(()=>{
+    //     handleFilterOnChange(name, funnelStatus, companySector, country, potentialSize, dispatch);
+    //     handleResetLoaderData(dispatch, token, filter, pageCounter);
+    // },[name, funnelStatus, companySector, country, potentialSize])
     
     //Filter Opctions
     React.useEffect(()=>{

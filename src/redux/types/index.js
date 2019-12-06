@@ -28,3 +28,4 @@ export const CHECKBOX_SELECT = "CHECKBOX_SELECT";
 //Loader daata
 export const LOADER_DATA ="LOADER_DATA";
 export const RESET_DATA = "RESET_DATA";
+export const ORDER_BY = "ORDER_BY";
